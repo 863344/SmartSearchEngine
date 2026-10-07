@@ -2,10 +2,6 @@
 
 A Java DSA project with a local browser frontend. The browser uses the real Java search engine.
 
-## Team
-
-Nishok (2510030201), Sharan (2510039435), Vasthav (2510030297), Aman Pasha (2501130428). Guide: Dr. Anitha P. Computer Science and Engineering, KLH Aziz Nagar.
-
 ## Run the frontend
 
 Open PowerShell in this folder and run `.\start-web.ps1`. Open http://127.0.0.1:8765 in a browser. Keep the terminal open. Stop with Ctrl+C. Use `.\start-web.ps1 -Port 8766` for a different port.
