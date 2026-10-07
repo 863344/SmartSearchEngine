@@ -1,0 +1,22 @@
+# Java build output
+bin/
+*.class
+
+# Generated working and preview files
+.presentation-output/
+.presentation-work/
+.report-work/
+
+# Office temporary files
+~$*
+.~lock.*#
+
+# Local proof and packaged duplicate
+live_proof.txt
+SmartSearchEngine_DSA_Project.zip
+
+# Editor and operating-system files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
