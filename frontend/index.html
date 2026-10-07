@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Smart Document Search · DSA Lab</title>
+  <link rel="icon" href="/favicon.svg"><link rel="stylesheet" href="/styles.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="/" aria-label="Smart Search home"><span class="brand-mark">S<span></span></span><span>Smart Search<small>THE DSA LAB</small></span></a>
+    <div class="sidebar-label">WORKSPACE</div>
+    <div class="nav-current"><span class="nav-icon">⌕</span> Document search <span class="nav-dot"></span></div>
+    <section class="collection-section">
+      <div class="sidebar-label">ACTIVE COLLECTION</div>
+      <div class="collection-name" id="collection-name">Connecting…</div>
+      <p class="collection-caption" id="collection-caption">Loading the local index</p>
+      <button class="outline-button" id="manage-collection">Manage collection <span>↗</span></button>
+      <div id="file-list" class="file-list" aria-label="Indexed documents"></div>
+    </section>
+    <div class="sidebar-bottom"><span class="local-dot"></span><span id="connection-label">Connecting to Java</span><p>Your index stays in local memory.</p><div class="team-label">PROJECT MEMBERS</div><p class="team">Nishok · Sharan<br>Vasthav · Aman Pasha</p></div>
+  </aside>
+  <main>
+    <header class="topbar"><span>DSA PROJECT <span class="breadcrumb-divider">/</span> SEARCH WORKSPACE</span><span class="topbar-note">Built with Java & fundamental data structures</span></header>
+    <div class="page-content">
+      <section class="intro"><div><p class="eyebrow">SMART DOCUMENT SEARCH SYSTEM</p><h1>Search your collection</h1><p class="intro-copy">Find relevant documents. Explore the data structures behind each result.</p></div><button class="add-button" id="add-documents"><span>+</span> Add documents</button></section>
+      <section class="stats" aria-label="Collection statistics"><div><span class="stat-value" id="stat-documents">—</span><span class="stat-label">Indexed documents</span></div><div><span class="stat-value" id="stat-terms">—</span><span class="stat-label">Unique terms</span></div><div><span class="stat-value" id="stat-tokens">—</span><span class="stat-label">Word positions</span></div><span class="index-note"><span class="local-dot"></span> In-memory inverted index</span></section>
+      <section class="search-section">
+        <form id="search-form" autocomplete="off"><div class="search-control"><span class="search-icon" aria-hidden="true">⌕</span><input id="query" name="query" aria-label="Search documents" placeholder='Search terms, "exact phrases", or Boolean expressions…' maxlength="512" required aria-controls="autocomplete" aria-expanded="false"><label class="k-control" for="top-k">Top K<select id="top-k" aria-label="Number of results"><option>3</option><option selected>5</option><option>10</option><option>20</option></select></label><button class="search-button" id="search-button" type="submit">Search <span>→</span></button></div><div id="autocomplete" class="autocomplete" hidden role="listbox" aria-label="Prefix suggestions"></div></form>
+        <div class="search-meta"><div class="example-queries" id="example-queries"><span>Try a query</span></div><button id="syntax-toggle" class="text-button" aria-expanded="false" aria-controls="syntax-help">Query guide <span>?</span></button></div>
+        <div id="syntax-help" class="syntax-help" hidden><p><code>data structures</code> means <code>data AND structures</code>. Use <code>OR</code> for either term, <code>NOT</code> to exclude, and parentheses for grouping.</p><p><code>"machine learning"</code> matches adjacent words in that order. Prefix suggestions use a Trie; the word checker uses a BK-Tree.</p></div>
+        <p id="search-error" class="error-message" role="alert" hidden></p>
+      </section>
+      <div class="workspace">
+        <section class="results-section" aria-labelledby="results-title"><div class="section-heading"><h2 id="results-title">Search results</h2><span id="results-meta" class="muted">Ready when you are</span></div><div id="results" aria-live="polite"><div class="empty-state"><div class="empty-symbol" aria-hidden="true">⌕</div><h3>Your collection is ready</h3><p>Enter a query or choose an example to find documents ranked by BM25 relevance.</p><div class="empty-flow"><span>Query</span><span>→</span><span>Match</span><span>→</span><span>Rank</span></div></div></div></section>
+        <aside class="inspector" aria-labelledby="inspector-title"><div class="inspector-heading"><span class="inspector-eyebrow">EXPLORE THE DSA</span><h2 id="inspector-title">Inside the engine</h2><p>Real structures from your latest query.</p></div><div class="inspector-tabs" role="tablist" aria-label="Data structure view"><button role="tab" id="tab-postings" aria-selected="true" aria-controls="inspector-content" data-tab="postings">Postings</button><button role="tab" id="tab-ast" aria-selected="false" aria-controls="inspector-content" data-tab="ast" tabindex="-1">Query AST</button><button role="tab" id="tab-heap" aria-selected="false" aria-controls="inspector-content" data-tab="heap" tabindex="-1">Top-K heap</button></div><div id="inspector-content" role="tabpanel" aria-labelledby="tab-postings"><div class="inspector-empty"><span>{ }</span><p>Run a search to inspect term postings, the parsed expression tree, and heap decisions.</p></div></div><div class="spell-section"><label for="spell-word">Check a word <span>BK-TREE</span></label><form id="spell-form"><input id="spell-word" placeholder="e.g. systms" maxlength="80" aria-label="Word to spell check" required><button type="submit" aria-label="Check spelling">→</button></form><div id="spell-results" aria-live="polite"><p class="spell-caption">Find vocabulary terms within two edits.</p></div></div></aside>
+      </div>
+      <footer class="page-footer"><span>HashMap · Linked lists · Stacks · Trees · Dynamic programming · Min-heap</span><span>DSA, made visible.</span></footer>
+    </div>
+  </main>
+  <dialog id="collection-dialog"><div class="dialog-heading"><div><p class="eyebrow">DOCUMENT COLLECTION</p><h2>Manage your documents</h2></div><button class="close-button" data-close="collection-dialog" aria-label="Close collection dialog">×</button></div><p class="dialog-description">Add text or markdown files, or open a collection from your computer.</p><div class="upload-actions"><button id="choose-files" class="primary-button">Choose documents</button><button id="choose-folder" class="outline-button">Choose a folder</button></div><input type="file" id="files-input" accept=".txt,.md" multiple hidden><input type="file" id="folder-input" webkitdirectory multiple hidden><p class="field-help">Selected files are added to the current index. Up to 100 files per selection, 1 MB each.</p><hr><h3>Open a collection</h3><p class="field-help">Opening a collection replaces the active in-memory index.</p><div class="dataset-options"><button data-dataset="demo" class="dataset-button"><strong>Demo collection</strong><span>4 short documents · Quick exploration</span></button><button data-dataset="rfc" class="dataset-button"><strong>RFC collection</strong><span>5 technical documents · Longer posting lists</span></button></div><form id="folder-form"><label for="folder-path">Or enter a local folder path</label><div class="folder-control"><input id="folder-path" placeholder="C:\path\to\documents" required><button type="submit" class="primary-button">Open</button></div></form><p class="dialog-status" id="collection-feedback" role="status"></p></dialog>
+  <dialog id="document-dialog"><div class="dialog-heading"><div><p class="eyebrow" id="document-meta">DOCUMENT</p><h2 id="document-title">Document</h2></div><button class="close-button" data-close="document-dialog" aria-label="Close document">×</button></div><pre id="document-content"></pre></dialog>
+  <div class="toast" id="toast" role="status" hidden></div>
+</body>
+</html>
